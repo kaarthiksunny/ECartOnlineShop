@@ -1,0 +1,71 @@
+﻿@using ECartOnlineShop.Models;
+@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "ProductsList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Products List</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info">&nbsp; Add New Product </a>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table table-striped border">
+        <tr class=" table-info">
+            <th>
+                @Html.DisplayNameFor(c => c.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.ProductRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.ProductImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.IsAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(c => c.ProductCategory)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>@item.ProductName</td>
+        <td>@item.ProductPrice</td>
+        <td>@item.ProductDescription</td>
+        <td>@item.ProductRating</td>
+        <td>@item.ProductImage</td>
+        <td>@item.IsAvailable</td>
+        <td>@item.ProductCategory</td>
+        
+
+        <td style="width 150px" align="right">
+            <div class="btn-group">
+
+                <a asp-action="Edit" asp-controller="Products" class="btn btn-primary" asp-route-id="@Model">Edit</a>&nbsp;
+
+                <a asp-action="Details" asp-controller="Products" class="btn btn-success" asp-route-id="@Model">Details</a>&nbsp;
+
+                <a asp-action="Delete" asp-controller="Products" class="btn btn-danger" asp-route-id="@Model">Delete</a>
+            </div>
+        </td>
+        
+    </tr>
+        }
+    </table>
+</div>
+

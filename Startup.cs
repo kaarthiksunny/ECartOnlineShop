@@ -31,6 +31,10 @@ namespace ECartOnlineShop
 
             services.AddTransient<IAdminContext, AdminContext>();
             services.AddTransient<IAdminServices, AdminServices>();
+            services.AddTransient<IProductTypesContext, ProductTypesContext>();
+            services.AddTransient<IProductTypesServices, ProductTypesServices>();
+            services.AddTransient<IProductContext, ProductContext>();
+            services.AddTransient<IProductServices, ProductServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
