@@ -1,5 +1,6 @@
 ﻿using ECartOnlineShop.Models;
 using ECartOnlineShop.ServicesLayer.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,13 @@ using System.Threading.Tasks;
 
 namespace ECartOnlineShop.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductServices services;
+
         private readonly IHostingEnvironment he;
+
         public ProductsController(IProductServices services1, IHostingEnvironment he1)
         {
             services = services1;
@@ -52,20 +56,17 @@ namespace ECartOnlineShop.Controllers
         // POST: ProductsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind] Product product , IFormFile image)
+        public ActionResult Create([Bind] Product product, IFormFile image)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (image != null)
                 {
                     var name = Path.Combine(he.WebRootPath + "/Images", Path.GetFileName(image.FileName));
                     image.CopyTo(new FileStream(name, FileMode.Create));
-                    product.ProductImage = "Images/" + image.FileName; 
+                    product.ProductImage = "Images/" + image.FileName;
                 }
-                if(image == null)
-                {
-                    product.ProductImage = "Images/noImage.png";
-                }
+
                 services.CreateProduct(product);
                 return RedirectToAction(nameof(ProductsList));
             }
@@ -76,10 +77,7 @@ namespace ECartOnlineShop.Controllers
         // GET: ProductsController/Edit/5
         public ActionResult Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            
             Product product = services.GetProduct(id);
             if (product == null)
             {
@@ -91,13 +89,19 @@ namespace ECartOnlineShop.Controllers
         // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind] Product product)
+        public ActionResult Edit(int id, [Bind] Product product, IFormFile image)
         {
             if (id == null) { return NotFound(); }
             if (ModelState.IsValid)
             {
+                if (image != null)
+                {
+                    var name = Path.Combine(he.WebRootPath + "/Images", Path.GetFileName(image.FileName));
+                    image.CopyTo(new FileStream(name, FileMode.Create));
+                    product.ProductImage = "Images/" + image.FileName;
+                }
 
-                services.UpdateProduct(product);
+                services.CreateProduct(product);
                 return RedirectToAction(nameof(ProductsList));
             }
             return View(services);
@@ -119,7 +123,7 @@ namespace ECartOnlineShop.Controllers
         }
 
         // POST: ProductsController/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -127,5 +131,8 @@ namespace ECartOnlineShop.Controllers
             return RedirectToAction(nameof(ProductsList));
 
         }
+
+      
+       
     }
 }

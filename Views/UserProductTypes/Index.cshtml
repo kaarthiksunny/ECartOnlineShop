@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ECartOnlineShop.Models.ProductTypes>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div>
+    <h1 class="text-primary">Categories</h1>
+
+    <div class="container" align="right">
+
+        <a asp-controller="UserProductTypes" asp-action="UserProductsList" class="btn bg-primary text-white" style="width:25%;">View All Products</a>
+
+    </div>
+</div>
+
+<style>
+    .btn {
+        width: 75%;
+    }
+</style>
+
+<div class="card-deck">
+    @foreach (var item in Model)
+    {
+        <div class="card m-3" style="min-width: 20rem; max-width: 30.5%;">
+            <div class="card-header" align="center">
+                <h4>@item.ProductType</h4>
+            </div>
+
+            <div class="card-img-top" align="center">
+                <img src="~/Images/@item.ProductTypeImage" asp-append-version="true" style="align-items:center; width:250px;height:350px;border-radius:5px;border:1px solid #efefef" />
+            </div>
+
+            <div class="card-footer text-center">
+                <a asp-page="" class="btn bg-primary m-1 text-white">Shop Now </a>
+            </div>
+        </div>
+    }
+</div>

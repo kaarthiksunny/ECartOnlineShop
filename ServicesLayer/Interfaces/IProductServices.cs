@@ -13,5 +13,6 @@ namespace ECartOnlineShop.ServicesLayer.Interfaces
         public void UpdateProduct(Product product);
         public void DeleteProduct(int ProductId);
         public Product GetProduct(int ProductId);
+        
     }
 }

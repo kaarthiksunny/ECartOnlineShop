@@ -2,11 +2,14 @@ using ECartOnlineShop.DataAccesLayer.Contexts;
 using ECartOnlineShop.DataAccesLayer.Interfaces;
 using ECartOnlineShop.ServicesLayer.Interfaces;
 using ECartOnlineShop.ServicesLayer.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -29,12 +32,35 @@ namespace ECartOnlineShop
         {
             services.AddControllersWithViews();
 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>{
+                    options.LoginPath = "/index";
+                });
+
+            services.AddSession(options =>
+            {
+                //Set a short timeout for easy testin
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                //option.Cookie.HttpOnly = true;
+                //Make the session cookie essesntial
+                options.Cookie.IsEssential = true;
+            });
+
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             services.AddTransient<IAdminContext, AdminContext>();
             services.AddTransient<IAdminServices, AdminServices>();
             services.AddTransient<IProductTypesContext, ProductTypesContext>();
             services.AddTransient<IProductTypesServices, ProductTypesServices>();
             services.AddTransient<IProductContext, ProductContext>();
             services.AddTransient<IProductServices, ProductServices>();
+            services.AddTransient<ILoginContext, LoginContext>();
+            services.AddTransient<ILoginServices, LoginServices>();
+            services.AddTransient<IUserProductContext, UserProductContext>();
+            services.AddTransient<IUserProductServices, UserProductServices>();
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +79,11 @@ namespace ECartOnlineShop
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

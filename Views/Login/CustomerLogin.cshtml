@@ -1,0 +1,59 @@
+﻿@model ECartOnlineShop.Models.CustomerLogin
+
+
+@{
+    var returnUrl = ViewData["ReturnUrl"] as string;
+    var message = TempData["Error"] as string;
+}
+
+<h2 class="text-info">Customer Login</h2>
+
+<form action="/Index?ReturnUrl=@System.Net.WebUtility.UrlEncode(returnUrl)" method="post">
+    <div class="p-4 rounded border">
+        <div asp-validation-summary="ModelOnly" class="text-danger">
+
+        </div>
+        <div>
+            @if (!string.IsNullOrEmpty(message))
+            {
+                <h4 class="alert-danger" style="padding:15px;">@message</h4>
+            }
+        </div>
+        <div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="UserName"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="UserName" class="form-control" placeholder="Enter User Name" />
+                </div>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label asp-for="Password"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="Password" class="form-control" style="-webkit-text-security: square" placeholder="Enter Password" />
+                </div>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="col-5" align="center">
+                    <input type="submit" class="btn btn-primary" value="Login" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+@{
+    if (TempData["message"] != null)
+    {
+        <script type="text/javascript">
+            alert('@TempData["message"]');
+        </script>
+    }
+}
+
+

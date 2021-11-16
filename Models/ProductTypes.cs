@@ -13,5 +13,7 @@ namespace ECartOnlineShop.Models
         [Required]
         [Display(Name = "Product Type")]
         public string ProductType { get; set; }
+        [Display(Name = "Product Type Image")]
+        public string ProductTypeImage { get; set; }
     }
 }

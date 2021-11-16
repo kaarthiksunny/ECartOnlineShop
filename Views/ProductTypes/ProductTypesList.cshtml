@@ -16,22 +16,48 @@
 </div>
 <br />
 <div>
-    <table class="table table-striped border">
-        <tr class=" table-info">
-            <th>
-                @Html.DisplayNameFor(c => c.ProductType)
-            </th>
-            <th></th>
-        </tr>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.ProductType</td>
-                <td>
-                    <partial name="ButtonPartial" model="@item.Id" />
-                </td>
+    <table class="table table-striped border" id="myTable">
+        <thead>
+            <tr class=" table-info">
+                <th>
+                    @Html.DisplayNameFor(c => c.ProductType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.ProductTypeImage)
+                </th>
+                <th></th>
             </tr>
-        }
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductType</td>
+                    <td>@item.ProductTypeImage</td>
+
+                    <td style="width: 150px" align="right">
+                        <div class="btn-group">
+
+                            <a asp-action="Edit" class="btn btn-primary" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>&nbsp;
+
+                            <a asp-action="Details" class="btn btn-success" asp-route-id="@item.Id"><i class="fa fa-list-ul"></i></a>&nbsp;
+
+                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+
     </table>
 </div>
 
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

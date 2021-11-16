@@ -21,6 +21,7 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 cmd.Parameters.AddWithValue("@ProductType", productTypes.ProductType);
+                cmd.Parameters.AddWithValue("@ProductTypeImage", productTypes.ProductTypeImage);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -39,6 +40,7 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
 
                 cmd.Parameters.AddWithValue("@Id", productTypes.Id);
                 cmd.Parameters.AddWithValue("@ProductType", productTypes.ProductType);
+                cmd.Parameters.AddWithValue("@ProductTypeImage", productTypes.ProductTypeImage);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -60,7 +62,7 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
                     var productTypes = new ProductTypes();
                     productTypes.Id = Convert.ToInt32(dr["Id"].ToString());
                     productTypes.ProductType = dr["ProductType"].ToString();
-
+                    productTypes.ProductTypeImage = dr["ProductTypeImage"].ToString();
                     productTypesList.Add(productTypes);
                 }
                 con.Close();
@@ -101,6 +103,7 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
                 {
                     productTypes.Id = Convert.ToInt32(dr["Id"].ToString());
                     productTypes.ProductType = dr["ProductType"].ToString();
+                    productTypes.ProductTypeImage = dr["ProductTypeImage"].ToString();
                 }
                 con.Close();
             }

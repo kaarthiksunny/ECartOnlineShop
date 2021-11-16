@@ -31,7 +31,7 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
                     product.ProductDescription = dr["ProductDescription"].ToString();
                     product.ProductRating = dr["ProductRating"].ToString();
                     product.ProductImage = dr["ProductImage"].ToString();
-//                    product.IsAvailable = (bool)dr["IsAvailable"];
+
                     product.ProductCategory = dr["ProductCategory"].ToString();
 
                     productsList.Add(product);
@@ -54,8 +54,9 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
                 cmd.Parameters.AddWithValue("@ProductDescription", product.ProductDescription);
                 cmd.Parameters.AddWithValue("@ProductRating", product.ProductRating);
                 cmd.Parameters.AddWithValue("@ProductImage", product.ProductImage);
-                cmd.Parameters.AddWithValue("IsAvailable", product.IsAvailable);
+
                 cmd.Parameters.AddWithValue("@ProductCategory", product.ProductCategory);
+                cmd.Parameters.AddWithValue("@ProductCategoryId", product.ProductCategoryId);
 
                 con.Open();
                 cmd.ExecuteNonQuery();
@@ -76,7 +77,7 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
                 cmd.Parameters.AddWithValue("@ProductDescription", product.ProductDescription);
                 cmd.Parameters.AddWithValue("@ProductRating", product.ProductRating);
                 cmd.Parameters.AddWithValue("@ProductImage", product.ProductImage);
-                cmd.Parameters.AddWithValue("@IsAvailable", product.IsAvailable);
+            
                 cmd.Parameters.AddWithValue("@ProductCategory", product.ProductCategory);
 
                 con.Open();
@@ -121,7 +122,7 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
                     product.ProductDescription = dr["ProductDescription"].ToString();
                     product.ProductRating = dr["ProductRating"].ToString();
                     product.ProductImage = dr["ProductImage"].ToString();
-  //                  product.IsAvailable = (bool)dr["IsAvailable"];
+          
                     product.ProductCategory = dr["ProductCategory"].ToString();
 
                 }
@@ -129,6 +130,9 @@ namespace ECartOnlineShop.DataAccesLayer.Contexts
             }
             return product;
         }
+
+        
+
 
     }
 }

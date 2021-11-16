@@ -1,0 +1,67 @@
+﻿@using ECartOnlineShop.Models;
+@model IEnumerable<Admin>
+@{
+    ViewData["Title"] = "AdminsList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<div class="row">
+    <div class="col-6">
+        <h2 class="text-info">Admins</h2>
+    </div>
+    <div class="col-6 text-right">
+        <a asp-action="Create" class="btn btn-info">&nbsp;Add New Admin</a>
+    </div>
+</div>
+<br />
+<div>
+    <table class="table table-striped border" id="myTable">
+        <thead>
+            <tr class=" table-info">
+                <th>
+                    @Html.DisplayNameFor(c => c.AdminName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.DOJ)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.Mobile)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(c => c.Address)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.AdminName</td>
+                <td>@item.DOJ</td>
+                <td>@item.Mobile</td>
+                <td>@item.Address</td>
+
+                <td style="width: 160px" align="right">
+                    <div class="btn-group">
+
+                        <a asp-controller="Admins" asp-action="Delete" class="btn btn-danger" asp-route-id="@item.AdminId">Remove Admin &nbsp;<i class="fa fa-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+
+
+    </table>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+}

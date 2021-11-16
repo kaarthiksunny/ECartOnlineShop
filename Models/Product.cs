@@ -22,11 +22,12 @@ namespace ECartOnlineShop.Models
         public string ProductRating { get; set; }
         [Display(Name = "Product Image")]
         public string ProductImage { get; set; }
-        [Required]
-        [Display(Name = "Available")]
-        public bool IsAvailable { get; set; }
+        //[Required]
+        //[Display(Name = "Available")]
+       // public bool IsAvailable { get; set; }
         [Display(Name = "Product Type")]
         public string ProductCategory { get; set; }
-        
+        public int ProductCategoryId { get; set; }
+
     }
 }

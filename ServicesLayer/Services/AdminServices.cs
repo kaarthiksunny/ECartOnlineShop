@@ -22,5 +22,33 @@ namespace ECartOnlineShop.ServicesLayer.Services
         {
             dbContext.CreateAdmin(admin);
         }
+
+        public IEnumerable<Admin> GetAdmins()
+        {
+            List<Admin> adminsList = dbContext.GetAdmins().ToList();
+            return adminsList;
+        }
+
+        public void DeleteAdmin(int AdminId)
+        {
+            dbContext.DeleteAdmin(AdminId);
+        }
+
+        public void CreateCustomer(Customer customer)
+        {
+            dbContext.CreateCustomer(customer);
+        }
+
+        public IEnumerable<Customer> GetCustomers()
+        {
+            List<Customer> customersList = dbContext.GetCustomers().ToList();
+            return customersList;
+        }
+
+        public void DeleteCustomer(int UserId)
+        {
+            dbContext.DeleteCustomer(UserId);
+        }
+
     }
 }

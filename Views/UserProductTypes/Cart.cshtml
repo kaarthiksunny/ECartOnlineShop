@@ -1,0 +1,60 @@
+﻿@using ECartOnlineShop.Models
+@model List<Product>
+@{ 
+    ViewData["Title"] = "Cart";
+}
+
+<h1 class="text-primary">Cart</h1>
+<br/>
+<div class="row">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Category</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="~/Images/@item.ProductImage" width="200px" height="150px"/>
+
+                    </td>
+                    <td>
+                        @item.ProductName
+                    </td>
+                    <td>
+                        @item.ProductPrice
+                    </td>
+                    <td>
+                        @item.ProductCategory
+                    </td>
+                    <td>
+                        <a asp-action="Remove" asp-controller="UserProductTypes" asp-route-id="@item.ProductId" class="btn btn-danger">
+                            <i class="bi bi-trash"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                            </svg>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-6">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-success">Back to Home</a>
+    </div>
+    <div class="col-6 text-right">
+        <h4>Total Amount</h4>
+        <h4>Grand Total : $ @Model.Sum(c=>c.ProductPrice)</h4>
+        <a asp-action="" asp-controller="" class="btn bg-primary text-white">Proceed to Checkout</a>
+    </div>
+</div>
